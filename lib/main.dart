@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:quizzler/question_source.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -77,25 +78,25 @@ class _QuizPageState extends State<QuizPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Expanded(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: FAProgressBar(
+                backgroundColor: Colors.transparent,
+                progressColor: Colors.white70,
+                currentValue: questionSource.getQuestionNumber(),
+                maxValue: questionSource.getTotalQuestionCount(),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
           flex: 5,
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Center(
-                  child: Text(
-                    "Question Number : ${(questionSource.getQuestionNumber() + 1).toString()}/${questionSource.getTotalQuestionCount()}",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 100.0,
-                ),
                 Center(
                   child: Text(
                     questionSource.getNextQuestionText(),
