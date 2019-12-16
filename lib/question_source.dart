@@ -37,7 +37,7 @@ class QuestionSource {
   }
 
   bool isFinished() {
-    return _questionNumber == _questions.length - 1;
+    return _questionNumber >= _questions.length - 1;
   }
 
   void resetQuestions() {
@@ -54,5 +54,13 @@ class QuestionSource {
 
   String getNextQuestionText() {
     return _getCurrentQuestion().questionText;
+  }
+
+  int getQuestionNumber() {
+    return _questionNumber;
+  }
+
+  int getTotalQuestionCount(){
+    return _questions.length;
   }
 }

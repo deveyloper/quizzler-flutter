@@ -43,25 +43,26 @@ class _QuizPageState extends State<QuizPage> {
         ),
       );
     } else {
-      scoreKeeper.add(
-        Icon(
-          Icons.close,
-          color: Colors.red,
-        ),
-      );
+      scoreKeeper.add(Icon(
+        Icons.close,
+        color: Colors.red,
+      ));
     }
+
     setState(() {
       if (questionSource.isFinished()) {
+        int correntAnswerCount =
+            scoreKeeper.where((s) => s.icon == Icons.check).length;
+        int totalQuestionCount = scoreKeeper.length;
         Alert(
           context: context,
           title: 'Finished!',
-          desc: 'You\'ve reached the end of the quiz.',
+          desc:
+              'You\'ve reached the end of the quiz.\nCorrent answers: $correntAnswerCount / $totalQuestionCount',
         ).show();
 
-        //TODO Step 4 Part C - reset the questionNumber,
         questionSource.resetQuestions();
 
-        //TODO Step 4 Part D - empty out the scoreKeeper.
         scoreKeeper = [];
       } else {
         questionSource.nextQuestion();
@@ -79,15 +80,33 @@ class _QuizPageState extends State<QuizPage> {
           flex: 5,
           child: Padding(
             padding: EdgeInsets.all(10.0),
-            child: Center(
-              child: Text(
-                questionSource.getNextQuestionText(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Center(
+                  child: Text(
+                    "Question Number : ${(questionSource.getQuestionNumber() + 1).toString()}/${questionSource.getTotalQuestionCount()}",
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 100.0,
+                ),
+                Center(
+                  child: Text(
+                    questionSource.getNextQuestionText(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -130,6 +149,7 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Expanded(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: scoreKeeper,
           ),
         ),
