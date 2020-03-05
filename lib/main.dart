@@ -86,6 +86,7 @@ class _QuizPageState extends State<QuizPage> {
                 progressColor: Colors.white70,
                 currentValue: questionSource.getQuestionNumber(),
                 maxValue: questionSource.getTotalQuestionCount(),
+                animatedDuration: Duration(milliseconds: 50),
               ),
             ),
           ),
